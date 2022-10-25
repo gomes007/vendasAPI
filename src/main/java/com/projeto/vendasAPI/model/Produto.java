@@ -1,6 +1,5 @@
 package com.projeto.vendasAPI.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +20,7 @@ public class Produto {
     private Long id;
 
     private String descricao;
+
     private String nome;
 
     @Column(name = "preco", precision = 16, scale = 2)
@@ -28,19 +28,12 @@ public class Produto {
 
     private String sku;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataCadastro;
+    @Column(name = "data_cadastro")
+    private LocalDate cadastro;
+
 
     @PrePersist
-    public void prePersist(){
-        setDataCadastro(LocalDate.now());
-    }
-
-    public Produto(String nome, String descricao, BigDecimal preco, String sku) {
-        super();
-        this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.sku = sku;
+    public void prePersist() {
+        setCadastro(LocalDate.now());
     }
 }
